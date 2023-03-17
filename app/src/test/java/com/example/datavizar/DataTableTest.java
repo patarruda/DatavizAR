@@ -53,7 +53,7 @@ public class DataTableTest {
     @Test
     public void testSetDataSlice() {
         try {
-            DataTable tabelaTeste = new DataTable("C:\\Users\\patar\\AndroidStudioProjects\\DatavizAR\\app\\data\\WorldGDP_comma.csv");
+            DataTable tabelaTeste = new DataTable("C:\\Users\\patar\\AndroidStudioProjects\\DatavizAR\\app\\data\\WorldGDP.csv");
 
             System.out.println(tabelaTeste.getDataSet().first(10));
 
