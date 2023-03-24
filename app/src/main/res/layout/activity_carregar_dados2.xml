@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_grey"
+    android:orientation="vertical"
+    app:circularflow_defaultRadius="10dp"
+    tools:context=".CarregarDadosActivity2">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/gradient"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Verifique seus dados e escolha até 10 itens para visualizar."
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp" />
+
+    </LinearLayout>
+
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="474dp"
+        android:layout_margin="15dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/round_400"
+        app:layout_constraintBottom_toTopOf="@+id/btOk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        <!-- android:stretchColumns="1,2"-->
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:layout_marginStart="5dp"
+                android:layout_span="2"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Selecione duas colunas para sua tabela..."
+                android:textSize="16dp"
+                android:textStyle="italic" />
+
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_column="1"
+                android:layout_weight="2"
+                android:background="@color/blue_grey_100"
+                android:drawableRight="@drawable/ic_order_by"
+                android:gravity="center"
+                android:minWidth="90dp"
+                android:padding="10dp"
+                android:text="CATEGORIA"
+                android:textColor="@color/blue_grey_400"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:background="@color/blue_grey_100"
+                android:drawableRight="@drawable/ic_order_by"
+                android:gravity="center"
+                android:minWidth="90dp"
+                android:padding="10dp"
+                android:text="VALORES"
+                android:textColor="@color/blue_grey_400"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+
+            <Spinner
+                android:id="@+id/spinColunaNomes"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:layout_column="1"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:maxWidth="200dp"
+                android:minWidth="90dp"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinColunaValores"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxWidth="200dp"
+                android:minWidth="90dp"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+        </TableRow>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="339dp" />
+
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btOk"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="160dp"
+        android:backgroundTint="@color/blue_grey_300"
+        android:onClick="openAR"
+        android:text="OK"
+        android:textColor="@color/white"
+        app:cornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tableLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

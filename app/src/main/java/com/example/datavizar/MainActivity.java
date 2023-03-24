@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-import tech.tablesaw.api.Table;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -21,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Runnable r = new Runnable() {
             public void run() {
-                Intent intent = new Intent(MainActivity.this, CarregarDadosActivity.class);
+                Intent intent = new Intent(MainActivity.this, CarregarDadosActivity1.class);
                 startActivity(intent);
                 finish();
             }
