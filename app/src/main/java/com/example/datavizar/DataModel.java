@@ -1,5 +1,8 @@
 package com.example.datavizar;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,9 +20,10 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
 
-public class DataModel {
+public class DataModel implements Parcelable {
 
     //atributos estáticos
+    //DataSet completo, conforme CSV
     private static List<Map<String, String>> dataSet;
     private static String[] nomesColunas;
     private static double escala;
@@ -34,6 +38,36 @@ public class DataModel {
         this.nome = nome;
         this.valor = valor;
         this.isSelected = false;
+    }
+
+    protected DataModel(Parcel in) {
+        nome = in.readString();
+        valor = in.readDouble();
+        isSelected = in.readByte() != 0;
+    }
+
+    public static final Creator<DataModel> CREATOR = new Creator<DataModel>() {
+        @Override
+        public DataModel createFromParcel(Parcel in) {
+            return new DataModel(in);
+        }
+
+        @Override
+        public DataModel[] newArray(int size) {
+            return new DataModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nome);
+        dest.writeDouble(valor);
+        dest.writeByte((byte) (isSelected ? 1 : 0));
     }
 
     public String getNome() {
@@ -113,6 +147,42 @@ public class DataModel {
 
             }
             return dataSlice;
+    }
+
+    public static Comparator<DataModel> compareNomeAsc() {
+        return new Comparator<DataModel>() {
+            @Override
+            public int compare(DataModel o1, DataModel o2) {
+                return o1.getNome().compareTo(o2.getNome());
+            }
+        };
+    }
+
+    public static Comparator<DataModel> compareNomeDes() {
+        return new Comparator<DataModel>() {
+            @Override
+            public int compare(DataModel o1, DataModel o2) {
+                return o2.getNome().compareTo(o1.getNome());
+            }
+        };
+    }
+
+    public static Comparator<DataModel> compareValorAsc() {
+        return new Comparator<DataModel>() {
+            @Override
+            public int compare(DataModel o1, DataModel o2) {
+                return Double.compare(o1.getValor(), o2.getValor());
+            }
+        };
+    }
+
+    public static Comparator<DataModel> compareValorDes() {
+        return new Comparator<DataModel>() {
+            @Override
+            public int compare(DataModel o1, DataModel o2) {
+                return Double.compare(o2.getValor(), o1.getValor());
+            }
+        };
     }
 
 

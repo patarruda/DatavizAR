@@ -1,5 +1,6 @@
 package com.example.datavizar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,13 +8,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.google.ar.core.ArCoreApk;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //this.getSupportActionBar().hide();
+
+        checkAr();
 
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -26,6 +30,28 @@ public class MainActivity extends AppCompatActivity {
         };
         handler.postDelayed(r, 3000);
 
+    }
+
+    void checkAr() {
+        ArCoreApk.Availability availability = ArCoreApk.getInstance().checkAvailability(this);
+        if (availability.isTransient()) {
+            // Continue to query availability at 5Hz while compatibility is checked in the background.
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    checkAr();
+                }
+            }, 200);
+        }
+        if (!availability.isSupported()) {
+            // Apresentar mensagem informando que o dispositivo não suporta AR
+            AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+            alerta.setMessage("Desculpe! Este dispositivo não suporta visualizações em realidade aumentada.");
+            alerta.show();
+            // Fechar o app
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
+        }
     }
 }
 

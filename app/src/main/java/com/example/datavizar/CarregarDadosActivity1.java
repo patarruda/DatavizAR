@@ -1,5 +1,6 @@
 package com.example.datavizar;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -21,7 +22,7 @@ import java.io.InputStreamReader;
 
 public class CarregarDadosActivity1 extends AppCompatActivity {
 
-    private int requestCode = 1;
+    private final int requestCode = 1;
     private String filePath;
     private Table table;
 
@@ -35,6 +36,7 @@ public class CarregarDadosActivity1 extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
         startActivityForResult(intent, requestCode);
+        // verificar ActivityResultContracts.GetContent
     }
 
     @Override
@@ -63,6 +65,7 @@ public class CarregarDadosActivity1 extends AppCompatActivity {
                 } catch (FileNotFoundException e) {
                     //// TODO: 19/03/2023
                     e.printStackTrace();
+                    Toast.makeText(this, "Arquivo não localizado!", Toast.LENGTH_LONG).show();
                 }
 
             }

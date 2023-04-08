@@ -1,10 +1,14 @@
 package com.example.datavizar;
 
-import java.io.IOError;
+/**
+NÃO UTILIZADA no app
+
+Esta classe manipula dados através da api Tablesaw, mas esta não funciona no Android.
+ */
+
 import java.io.IOException;
 import java.util.List;
 
-import tech.tablesaw.api.ColumnType;
 import tech.tablesaw.api.NumberColumn;
 import tech.tablesaw.api.NumericColumn;
 import tech.tablesaw.api.Table;
@@ -58,7 +62,7 @@ public class DataTable {
      * @throws IOException  Erros ao tentar abrir o arquivo CSV.
      * @throws IllegalArgumentException CSV com menos de 2 colunas.
      */
-    public void setDataSet(String filePath) throws IOException, IllegalArgumentException {
+    public void setDataSet(String filePath) throws IllegalArgumentException {
         // se não conseguir abrir o CSV, joga IOException
         Table tabela = Table.read().csv(filePath); // usa o separador padrão: ','
 

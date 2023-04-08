@@ -33,7 +33,20 @@ android {
 
 dependencies {
 
+    // ARCore (Google Play Services for AR) library.
+    //implementation 'com.google.ar:core:1.36.0'
+
+    // Obj - a simple Wavefront OBJ file loader (usado no sample hello-ar)
+    // https://github.com/javagl/Obj
+    implementation 'de.javagl:obj:0.2.1'
+
+    //Sceneform
+    //https://github.com/SceneView/sceneform-android
+    implementation "com.gorisse.thomas.sceneform:sceneform:1.21.0"
+
+
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.6'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
