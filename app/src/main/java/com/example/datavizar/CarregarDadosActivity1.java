@@ -34,7 +34,8 @@ public class CarregarDadosActivity1 extends AppCompatActivity {
 
     public void openFileChooser(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/comma-separated-values");
         startActivityForResult(intent, requestCode);
         // verificar ActivityResultContracts.GetContent
     }
@@ -62,10 +63,10 @@ public class CarregarDadosActivity1 extends AppCompatActivity {
 
                     startActivity(new Intent(CarregarDadosActivity1.this, CarregarDadosActivity2.class));
 
-                } catch (FileNotFoundException e) {
+                } catch (Exception e) {
                     //// TODO: 19/03/2023
                     e.printStackTrace();
-                    Toast.makeText(this, "Arquivo não localizado!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Erro ao abrir o arquivo. Selecione um arquivo do tipo \"*.csv\".", Toast.LENGTH_LONG).show();
                 }
 
             }
