@@ -93,7 +93,8 @@ public class ARVisualizerActivity extends AppCompatActivity implements
         //if (indiceY < listaY.length) {
         if (indiceY < dataSlice.size()) {
             DataModel item = dataSlice.get(indiceY);
-            Vector3 vetorSize = calcularVetor(item.getValor());
+            //Vector3 vetorSize = calcularVetor(item.getValor());
+            Vector3 vetorSize = calcularVetorVolume(item.getValor());
 
             //criarCubo(0.1f, listaY[indiceY], 0.1f).thenAccept(model -> {
             //criarCubo(0.1f, calcularAlturaY(dataSlice.get(indiceY).getValor()), 0.1f).thenAccept(model -> {
@@ -131,6 +132,7 @@ public class ARVisualizerActivity extends AppCompatActivity implements
 
     public Node criarLabel(String nome, Vector3 vetorCubo) {
         Node textViewNode = new Node();
+
         // posiciona label em frente ao cubo, próximo à base
         textViewNode.setLocalPosition(new Vector3(0.0f, 0.0f, vetorCubo.z + 0.2f));
         textViewNode.setLocalRotation(Quaternion.eulerAngles(new Vector3(-90f, 0f, 0f)));
@@ -185,6 +187,10 @@ public class ARVisualizerActivity extends AppCompatActivity implements
 
     }
 
+    /*
+    NÃO UTILIZADO
+    Calcula o vetor de modo que apenas a ALTURA da forma 3D seja proporcional ao valor do item
+     */
     private Vector3 calcularVetor(double valor) {
         float alturaY = (alturaMaxima * (float) valor) / (float) valorMaximo;
         float larguraX;
@@ -196,6 +202,23 @@ public class ARVisualizerActivity extends AppCompatActivity implements
         }
         float profundidadeZ = larguraX;
         return new Vector3(larguraX, alturaY, profundidadeZ);
+
+    }
+
+    /*
+    Calcula o vetor de modo que o VOLUME da forma 3D seja proporcional ao valor do item
+     */
+    private Vector3 calcularVetorVolume(double valor) {
+        // O volume do objeto será proporcional ao valor do item
+        // Para o item de maior valor no dataSlice as dimensões serão: (x,y,z) = (alturaMaxima, larguraMaxima, larguraMaxima)
+        // Manter proporção entre altura/largura
+
+        float prop = alturaMaxima / larguraMaxima;
+        float volumeMaximo = alturaMaxima * larguraMaxima * larguraMaxima;
+        float alturaY = (float) Math.cbrt( (valor * volumeMaximo * prop * prop) / (valorMaximo) );
+        float larguraXZ = (float) Math.cbrt( (valor * volumeMaximo) / (valorMaximo * prop) );
+
+        return new Vector3(larguraXZ, alturaY, larguraXZ);
 
     }
 
