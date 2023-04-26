@@ -12,10 +12,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.opencsv.exceptions.CsvException;
+
 import tech.tablesaw.api.Table;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -56,18 +59,24 @@ public class CarregarDadosActivity1 extends AppCompatActivity {
                     InputStream inputStream = resolver.openInputStream(uri);
                     BufferedReader bufReader = new BufferedReader(new InputStreamReader(inputStream));
 
-                    //
+                    //throws IOException, CsvException
                     DataModel.createDataSet(bufReader);
 
                     //Toast.makeText(context, this.filePath, Toast.LENGTH_SHORT).show();
 
                     startActivity(new Intent(CarregarDadosActivity1.this, CarregarDadosActivity2.class));
 
-                } catch (Exception e) {
-                    //// TODO: 19/03/2023
+                } catch (IOException e) {
                     e.printStackTrace();
-                    Toast.makeText(this, "Erro ao abrir o arquivo. Selecione um arquivo do tipo \"*.csv\".", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Não foi possível abrir o arquivo.", Toast.LENGTH_LONG).show();
+                } catch (CsvException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "O arquivo não parece ser um csv válido.", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Ops.. Algo deu errado. Tente outro arquivo.", Toast.LENGTH_LONG).show();
                 }
+
 
             }
 

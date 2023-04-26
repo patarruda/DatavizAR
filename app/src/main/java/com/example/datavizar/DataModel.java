@@ -90,38 +90,34 @@ public class DataModel implements Parcelable {
         return dataSet;
     }
 
-    public static void createDataSet(String pathCsv) throws FileNotFoundException {
+    public static void createDataSet(String pathCsv) throws IOException, CsvException {
         File myFile = new File(pathCsv);
         BufferedReader bufReader = new BufferedReader(new FileReader(myFile));
         DataModel.createDataSet(bufReader);
     }
 
-    public static void createDataSet(BufferedReader bufReader) throws FileNotFoundException {
+    public static void createDataSet(BufferedReader bufReader) throws IOException, CsvException {
         CSVReader reader = new CSVReader(bufReader);
 
-        try {
-            List<String[]> csv = reader.readAll();
 
-            nomesColunas = csv.get(0);
-            List<Map<String, String>> linhas = new ArrayList<>();
-            int qtdColunas = nomesColunas.length;
+        List<String[]> csv = reader.readAll();
 
-            for (int i = 1; i < csv.size(); i++) {
-                String [] csvLinha = csv.get(i);
-                Map<String, String> linha = new HashMap<>(qtdColunas);
+        nomesColunas = csv.get(0);
+        List<Map<String, String>> linhas = new ArrayList<>();
+        int qtdColunas = nomesColunas.length;
 
-                for (int j = 0; j < qtdColunas; j++) {
-                    linha.put(nomesColunas[j], csvLinha[j]);
-                }
-                linhas.add(linha);
+        for (int i = 1; i < csv.size(); i++) {
+            String [] csvLinha = csv.get(i);
+            Map<String, String> linha = new HashMap<>(qtdColunas);
+
+            for (int j = 0; j < qtdColunas; j++) {
+                linha.put(nomesColunas[j], csvLinha[j]);
             }
-            dataSet = linhas;
-
-        } catch (CsvException e) {
-            // todo Tratar exceção da chamada: List<String[]> csv = reader.readAll();
-        } catch (IOException e) {
-            // todo Tratar exceção da chamada: List<String[]> csv = reader.readAll();
+            linhas.add(linha);
         }
+        dataSet = linhas;
+
+
 
     }
 
